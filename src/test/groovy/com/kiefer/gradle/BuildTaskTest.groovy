@@ -28,8 +28,9 @@ class BuildTaskTest {
     }
 
     @Test
-    void dependsOnTest() {
+    void dependsOn() {
         def task = project.tasks.build
         assert task.dependsOn.contains('test')
+        assert task.dependsOn.contains('npmInstall')
     }
 }

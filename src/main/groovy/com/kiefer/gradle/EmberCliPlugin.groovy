@@ -22,11 +22,13 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.tasks.create(name: 'test', type: Exec) {
+            dependsOn 'npmInstall'
             executable 'ember'
             args 'test'
         }
 
         project.tasks.create(name: 'build', type: Exec) {
+            dependsOn 'npmInstall', 'test'
             executable 'ember'
             args "build", "-prod"
         }

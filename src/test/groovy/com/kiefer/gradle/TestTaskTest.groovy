@@ -26,4 +26,10 @@ class TestTaskTest {
         assert ["test"] == task.args
     }
 
+    @Test
+    void dependsOn() {
+        def task = project.tasks.test
+        assert task.dependsOn.contains('npmInstall')
+    }
+
 }
