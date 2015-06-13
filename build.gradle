@@ -5,6 +5,15 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.4'
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile localGroovy()
+    testCompile 'org.testng:testng:6.9.4'
+}
+
+test {
+    useTestNG()
 }
