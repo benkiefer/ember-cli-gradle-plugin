@@ -14,6 +14,9 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.tasks.create(name: 'npmInstall', type: Exec) {
+            inputs.file "package.json"
+            outputs.dir "node_modules"
+
             executable 'npm'
             args 'install'
         }

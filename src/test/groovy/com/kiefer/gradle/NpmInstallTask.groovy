@@ -27,4 +27,14 @@ class NpmInstallTask {
         assert ["install"] == task.args
     }
 
+    @Test
+    void inputsAndOutputs() {
+        def task = project.tasks.npmInstall
+        assert task.inputs.hasInputs
+        assert task.inputs.files.contains(new File(project.rootDir, 'package.json'))
+
+        assert task.outputs.hasOutput
+        assert task.outputs.files.contains(new File(project.rootDir, 'node_modules'))
+    }
+
 }
