@@ -5,7 +5,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
-class NpmInstallTask {
+class NpmInstallTask extends PluginSupport {
     private Project project;
 
     @BeforeMethod
@@ -31,10 +31,10 @@ class NpmInstallTask {
     void inputsAndOutputs() {
         def task = project.tasks.npmInstall
         assert task.inputs.hasInputs
-        assert task.inputs.files.contains(new File(project.rootDir, 'package.json'))
+        assert hasInput(task, new File(project.rootDir, 'package.json'))
 
         assert task.outputs.hasOutput
-        assert task.outputs.files.contains(new File(project.rootDir, 'node_modules'))
+        assert hasOutput(task, new File(project.rootDir, 'node_modules'))
     }
 
 }
