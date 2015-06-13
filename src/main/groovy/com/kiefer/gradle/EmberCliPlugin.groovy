@@ -13,12 +13,13 @@ class EmberCliPlugin implements Plugin<Project> {
             delete "tmp", "dist"
         }
 
-        project.tasks.create(name: 'build', type: Exec) {
-            commandLine "ember b -prod"
-        }
-
         project.tasks.create(name: 'test', type: Exec) {
             commandLine "ember t"
+        }
+
+        project.tasks.create(name: 'build', type: Exec) {
+            dependsOn 'test'
+            commandLine "ember b -prod"
         }
 
     }

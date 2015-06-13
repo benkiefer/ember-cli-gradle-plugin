@@ -27,4 +27,9 @@ class BuildTaskTest {
         assert "ember b -prod" == task.commandLine[0]
     }
 
+    @Test
+    void dependsOnTest() {
+        def task = project.tasks.build
+        assert task.dependsOn.contains('test')
+    }
 }
