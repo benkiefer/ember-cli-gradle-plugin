@@ -5,16 +5,20 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskInputs
+import org.gradle.api.tasks.bundling.Zip
 
 class EmberCliPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
 
         project.tasks.create(name: 'clean', type: Delete) {
+            description "Remove ember cli dist and tmp directories"
             delete "tmp", "dist"
         }
 
         project.tasks.create(name: 'npmInstall', type: Exec) {
+            description "Install npm dependencies"
+
             inputs.file "package.json"
             outputs.dir "node_modules"
 
@@ -23,6 +27,8 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.tasks.create(name: 'bowerInstall', type: Exec) {
+            description "Install bower dependencies"
+
             inputs.file "bower.json"
             outputs.dir "bower_components"
 
@@ -31,6 +37,8 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.tasks.create(name: 'test', type: Exec) {
+            description "Execute ember tests"
+
             dependsOn 'npmInstall', 'bowerInstall'
 
             applyAppInputs inputs
@@ -42,6 +50,8 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.tasks.create(name: 'emberBuild', type: Exec) {
+            description "Execute ember build"
+
             applyAppInputs inputs
 
             outputs.dir "dist"
@@ -51,13 +61,27 @@ class EmberCliPlugin implements Plugin<Project> {
             args "build", "-prod"
         }
 
-//        project.tasks.create(name: 'package', type: Exec) {
-//            inputs.dir "dist"
-//
-//        }
+        project.tasks.create(name: 'emberPackage', type: Zip) {
+            dependsOn "emberBuild"
+
+            baseName = project.name
+            version = project.version
+
+            from 'dist'
+            into "$project.buildDir/libs"
+        }
 
         project.tasks.create(name: 'build') {
-            dependsOn "emberBuild"
+            description "Execute the full ember build lifecycle"
+            dependsOn "emberPackage"
+        }
+
+        project.configurations {
+            js
+        }
+
+        project.artifacts {
+            js project.tasks.emberPackage
         }
 
     }
