@@ -28,6 +28,10 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.tasks.create(name: 'build', type: Exec) {
+            inputs.files "app", "config", "node_modules", "public", "vendor", "bower_components", "Brocfile.js"
+
+            outputs.dir "dist"
+
             dependsOn 'npmInstall', 'test'
             executable 'ember'
             args "build", "-prod"
