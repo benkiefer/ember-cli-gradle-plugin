@@ -43,10 +43,28 @@ Example:
 
      ./gradlew test
 
-## The Build Task
+## The EmberBuild Task
 ---------
 
 Shells out to Ember CLI and executes the build command with a production environment target. Also executes the Test, NpmInstall, and BowerInstall task.
+
+Example:
+
+     ./gradlew emberBuild
+
+## The EmberPackage Task
+---------
+
+Creates a zip archive of the `dist` folder in the `build\libs` folder. This artifact is created under the js configuration.
+
+Example:
+
+     ./gradlew emberPackage
+
+## The Build Task
+---------
+
+Executes the EmberPackage task and all it's dependencies. This task is the main entry point for this plugin.
 
 Example:
 
@@ -55,6 +73,6 @@ Example:
 #TODO
 ---------
 
- - Zip Distribution? Web Jar?
+ - Up to Date checking for publish
  - Finalize README
- - Publish
+ - Publish to third party repository
