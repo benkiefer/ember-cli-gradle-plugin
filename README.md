@@ -16,10 +16,28 @@ Example:
 
      ./gradlew clean
 
+## The NpmInstall Task
+---------
+
+Shells out to npm and executes the install command.
+
+Example:
+
+     ./gradlew npmInstall
+
+## The BowerInstall Task
+---------
+
+Shells out to bower and executes the install command.
+
+Example:
+
+     ./gradlew bowerInstall
+
 ## The Test Task
 ---------
 
-Shells out to Ember CLI and executes the test command.
+Shells out to Ember CLI and executes the test command. Also executes the BowerInstall and NpmInstall tasks.
 
 Example:
 
@@ -28,7 +46,7 @@ Example:
 ## The Build Task
 ---------
 
-Shells out to Ember CLI and executes the build command with a production environment target. Also executes the Test task.
+Shells out to Ember CLI and executes the build command with a production environment target. Also executes the Test, NpmInstall, and BowerInstall task.
 
 Example:
 
@@ -37,8 +55,6 @@ Example:
 #TODO
 ---------
 
- - NPM Install before Test/Build
- - Up to Date Checking
  - Zip Distribution? Web Jar?
  - Finalize README
  - Publish
