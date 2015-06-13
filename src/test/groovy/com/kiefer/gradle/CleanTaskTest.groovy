@@ -6,11 +6,7 @@ import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
-import static org.testng.Assert.assertFalse
-import static org.testng.Assert.assertNotNull
-import static org.testng.Assert.assertTrue
-
-class EmberCliPluginTest {
+class CleanTaskTest {
     private Project project;
     private File projectDir;
 
@@ -33,7 +29,7 @@ class EmberCliPluginTest {
 
     @Test
     void tasksAreRegistered() {
-        assertNotNull(project.tasks.clean)
+        assert project.tasks.clean
     }
 
     @Test
@@ -44,9 +40,9 @@ class EmberCliPluginTest {
 
         project.tasks.clean.execute()
 
-        assertTrue(app.exists())
-        assertFalse(dist.exists())
-        assertFalse(tmp.exists())
+        assert app.exists()
+        assert !dist.exists()
+        assert !tmp.exists()
     }
 
 
