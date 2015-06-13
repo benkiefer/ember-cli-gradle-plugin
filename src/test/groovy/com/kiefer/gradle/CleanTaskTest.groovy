@@ -37,12 +37,14 @@ class CleanTaskTest {
         def app = project.mkdir("app")
         def tmp = project.mkdir("tmp")
         def dist = project.mkdir("dist")
+        def build = project.mkdir("build")
 
         project.tasks.clean.execute()
 
         assert app.exists()
         assert !dist.exists()
         assert !tmp.exists()
+        assert !build.exists()
     }
 
 

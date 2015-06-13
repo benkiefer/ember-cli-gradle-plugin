@@ -10,7 +10,7 @@ The plugin expects that you have a global install of npm, bower, and ember cli, 
 ## The Clean Task
 ---------
 
-An independent task that removes the `tmp` and `dist` directories.
+An independent task that removes the `tmp`, `build`, and `dist` directories.
 
 Example:
 

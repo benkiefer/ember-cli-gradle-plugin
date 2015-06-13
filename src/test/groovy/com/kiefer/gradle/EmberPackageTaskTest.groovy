@@ -11,7 +11,7 @@ class EmberPackageTaskTest extends EmberCliPluginSupport {
     @Test
     void zipIsConfiguredCorrectly() {
         def task = project.tasks.emberPackage
-        assert task.archiveName == "$PROJECT_NAME-${project.version}.zip"
+        assert task.archivePath == new File("${project.buildDir}/libs/$task.archiveName")
     }
 
     @Test

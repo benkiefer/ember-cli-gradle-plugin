@@ -10,10 +10,13 @@ import org.gradle.api.tasks.bundling.Zip
 class EmberCliPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
+        project.buildDir = "$project.rootDir/build"
+        project.mkdir(project.buildDir)
+        project.mkdir(new File(project.buildDir, "libs"))
 
         project.tasks.create(name: 'clean', type: Delete) {
             description "Remove ember cli dist and tmp directories"
-            delete "tmp", "dist"
+            delete "tmp", "dist", project.buildDir
         }
 
         project.tasks.create(name: 'npmInstall', type: Exec) {
@@ -68,7 +71,7 @@ class EmberCliPlugin implements Plugin<Project> {
             version = project.version
 
             from 'dist'
-            into "$project.buildDir/libs"
+            destinationDir = new File("${project.buildDir}/libs")
         }
 
         project.tasks.create(name: 'build') {
