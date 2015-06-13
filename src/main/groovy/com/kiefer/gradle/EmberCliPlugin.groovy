@@ -14,12 +14,13 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.tasks.create(name: 'test', type: Exec) {
-            commandLine "ember t"
+            executable 'ember'
+            args 'test'
         }
 
         project.tasks.create(name: 'build', type: Exec) {
-            dependsOn 'test'
-            commandLine "ember b -prod"
+            executable 'ember'
+            args "build", "-prod"
         }
 
     }

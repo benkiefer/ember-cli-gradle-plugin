@@ -22,8 +22,8 @@ class TestTaskTest {
     @Test
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.test
-        assert task.commandLine.size() == 1
-        assert "ember t" == task.commandLine[0]
+        assert "ember" == task.executable
+        assert ["test"] == task.args
     }
 
 }

@@ -23,8 +23,8 @@ class BuildTaskTest {
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.build
         assert project.rootDir == task.workingDir
-        assert task.commandLine.size() == 1
-        assert "ember b -prod" == task.commandLine[0]
+        assert "ember" == task.executable
+        assert ["build", "-prod"] == task.args
     }
 
     @Test
