@@ -8,8 +8,8 @@ class EmberCliPlugin implements Plugin<Project> {
     void apply(Project project) {
 
         project.task('clean') << {
-            delete 'tmp'
-            delete 'dist'
+            delete "$project.rootDir/tmp"
+            delete "$project.rootDir/dist"
         }
 
     }
