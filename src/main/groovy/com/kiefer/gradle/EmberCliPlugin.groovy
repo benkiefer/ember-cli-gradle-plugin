@@ -22,8 +22,16 @@ class EmberCliPlugin implements Plugin<Project> {
             args 'install'
         }
 
+        project.tasks.create(name: 'bowerInstall', type: Exec) {
+            inputs.file "bower.json"
+            outputs.dir "bower_components"
+
+            executable 'bower'
+            args 'install'
+        }
+
         project.tasks.create(name: 'test', type: Exec) {
-            dependsOn 'npmInstall'
+            dependsOn 'npmInstall', 'bowerInstall'
 
             applyAppInputs inputs
             inputs.files "tests", "testem.json"
@@ -38,7 +46,7 @@ class EmberCliPlugin implements Plugin<Project> {
 
             outputs.dir "dist"
 
-            dependsOn 'npmInstall', 'test'
+            dependsOn 'npmInstall', 'bowerInstall', 'test'
             executable 'ember'
             args "build", "-prod"
         }

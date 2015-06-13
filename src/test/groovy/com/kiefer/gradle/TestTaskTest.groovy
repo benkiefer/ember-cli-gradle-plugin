@@ -30,6 +30,7 @@ class TestTaskTest extends PluginSupport{
     void dependsOn() {
         def task = project.tasks.test
         assert task.dependsOn.contains('npmInstall')
+        assert task.dependsOn.contains('bowerInstall')
     }
 
     @Test
