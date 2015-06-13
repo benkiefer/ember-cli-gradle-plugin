@@ -13,6 +13,11 @@ class EmberCliPlugin implements Plugin<Project> {
             delete "tmp", "dist"
         }
 
+        project.tasks.create(name: 'npmInstall', type: Exec) {
+            executable 'npm'
+            args 'install'
+        }
+
         project.tasks.create(name: 'test', type: Exec) {
             executable 'ember'
             args 'test'
