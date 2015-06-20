@@ -22,7 +22,7 @@ repositories {
 }
 
 group = "com.kiefer.gradle"
-version = "0.0.1"
+version = "0.0.2"
 
 dependencies {
     compile localGroovy()
@@ -76,14 +76,6 @@ bintray {
         version {
             name = project.version
             vcsTag = project.version
-//                gpg {
-//                    sign = true //Determines whether to GPG sign the files. The default is false
-//                    passphrase = 'passphrase' //Optional. The passphrase for GPG signing'
-//                }
-            mavenCentralSync {
-                user = oss_user_token
-                password = oss_user_password
-            }
         }
     }
 }
