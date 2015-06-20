@@ -64,7 +64,7 @@ bintray {
     dryRun = false
     publish = true
     pkg {
-        repo = project.name
+        repo = 'maven'
         name = project.name
         desc = 'A plugin for building Ember Cli Projects with Gradle'
         websiteUrl = 'https://github.com/benkiefer/ember-cli-gradle-plugin'
