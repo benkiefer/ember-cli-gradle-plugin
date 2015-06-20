@@ -22,7 +22,7 @@ repositories {
 }
 
 group = "com.kiefer.gradle"
-version = "0.0.2"
+version = "0.0.3"
 
 dependencies {
     compile localGroovy()
@@ -74,7 +74,7 @@ bintray {
         labels = ['ember', 'gradle', 'plugin', 'ember-cli']
         publicDownloadNumbers = true
         version {
-            description = 'A plugin for building Ember Cli Projects with Gradle'    
+            description = 'A plugin for building Ember Cli Projects with Gradle'
             name = project.version
             vcsTag = project.version
         }
