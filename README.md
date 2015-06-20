@@ -1,8 +1,6 @@
 # Ember CLI Gradle Plugin
 ---------
 
-WIP: See the TODO section of this README.
-
 A plugin for building Ember CLI projects with gradle.
 
 The plugin expects that you have a global install of npm, bower, and ember cli, which you would need if you were going to run a CLI project.
@@ -73,6 +71,5 @@ Example:
 #TODO
 ---------
 
- - Up to Date checking for publish
  - Finalize README
  - Publish to third party repository
