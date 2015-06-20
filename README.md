@@ -72,4 +72,3 @@ Example:
 ---------
 
  - Finalize README
- - Publish to third party repository
