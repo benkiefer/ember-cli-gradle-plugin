@@ -1,7 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+    }
+}
+
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'groovy'
 apply plugin: 'maven'
-apply plugin: 'signing'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.4'
@@ -23,6 +33,7 @@ test {
     useTestNG()
 }
 
+install.dependsOn 'build'
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
@@ -32,4 +43,47 @@ task sourcesJar(type: Jar) {
 artifacts {
     archives jar
     archives sourcesJar
+}
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
+        }
+    }
+}
+
+bintray {
+    user = bintray_user
+    key = bintray_api_key
+    publications = ['mavenJava']
+    dryRun = false
+    publish = true
+    pkg {
+        repo = project.name
+        name = project.name
+        desc = 'A plugin for building Ember Cli Projects with Gradle'
+        websiteUrl = 'https://github.com/benkiefer/ember-cli-gradle-plugin'
+        issueTrackerUrl = 'https://github.com/benkiefer/ember-cli-gradle-plugin/issues'
+        vcsUrl = 'https://github.com/benkiefer/ember-cli-gradle-plugin.git'
+        licenses = ['MIT']
+        labels = ['ember', 'gradle', 'plugin', 'ember-cli']
+        publicDownloadNumbers = true
+        version {
+            name = project.version
+            vcsTag = project.version
+//                gpg {
+//                    sign = true //Determines whether to GPG sign the files. The default is false
+//                    passphrase = 'passphrase' //Optional. The passphrase for GPG signing'
+//                }
+            mavenCentralSync {
+                user = oss_user_token
+                password = oss_user_password
+            }
+        }
+    }
 }
