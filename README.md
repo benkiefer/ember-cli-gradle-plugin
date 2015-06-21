@@ -5,6 +5,22 @@ A plugin for building Ember CLI projects with gradle.
 
 The plugin expects that you have a global install of npm, bower, and ember cli, which you would need if you were going to run a CLI project.
 
+## Usage
+---------
+
+In your build.gradle file...
+
+     buildscript {
+         repositories {
+             jcenter()
+         }
+         dependencies {
+             classpath "com.kiefer.gradle:ember-cli-gradle-plugin:0.0.3"
+         }
+     }
+
+Or, for a more complete example, check out my [sample project](https://github.com/benkiefer/gradle-ember-cli-example).
+
 ## The Clean Task
 ---------
 
@@ -71,4 +87,5 @@ Example:
 #TODO
 ---------
 
- - Finalize README
+ - Multi-module project example w/Spring Boot
+ - Publish 1.0.0 release
