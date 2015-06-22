@@ -19,6 +19,8 @@ In your build.gradle file...
          }
      }
 
+     apply plugin: "com.kiefer.gradle.embercli"
+
 Or, for a more complete example, check out my [sample project](https://github.com/benkiefer/gradle-ember-cli-example).
 
 ## The Clean Task
