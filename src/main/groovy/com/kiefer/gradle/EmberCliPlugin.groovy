@@ -65,6 +65,7 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.tasks.create(name: 'emberPackage', type: Zip) {
+            description "Build the zip distribution of the ember application"
             dependsOn "emberBuild"
 
             baseName = project.name
