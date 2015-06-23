@@ -26,7 +26,7 @@ Or, for a more complete example, check out my [sample project](https://github.co
 ## The Clean Task
 ---------
 
-An independent task that removes the `tmp`, `build`, and `dist` directories.
+An independent task that removes the `build` and `dist` directories.
 
 Example:
 

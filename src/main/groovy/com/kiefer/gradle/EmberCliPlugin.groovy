@@ -16,7 +16,7 @@ class EmberCliPlugin implements Plugin<Project> {
 
         project.tasks.create(name: 'clean', type: Delete) {
             description "Remove ember cli dist and tmp directories"
-            delete "tmp", "dist", project.buildDir
+            delete "dist", project.buildDir
         }
 
         project.tasks.create(name: 'npmInstall', type: Exec) {
