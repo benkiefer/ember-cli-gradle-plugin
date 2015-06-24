@@ -85,9 +85,3 @@ Executes the EmberPackage task and all it's dependencies. This task is the main 
 Example:
 
      ./gradlew build
-
-#TODO
----------
-
- - Multi-module project example w/Spring Boot
- - Publish 1.0.0 release
