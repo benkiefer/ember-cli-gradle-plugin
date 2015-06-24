@@ -15,7 +15,7 @@ In your build.gradle file...
              jcenter()
          }
          dependencies {
-             classpath "com.kiefer.gradle:ember-cli-gradle-plugin:0.0.3"
+             classpath "com.kiefer.gradle:ember-cli-gradle-plugin:VERSION_NUMBER"
          }
      }
 
