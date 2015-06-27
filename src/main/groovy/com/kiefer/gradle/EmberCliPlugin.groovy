@@ -70,6 +70,11 @@ class EmberCliPlugin implements Plugin<Project> {
             applyAppInputs inputs
             inputs.files "tests", "testem.json"
             outputs.dir "dist"
+            outputs.upToDateWhen {
+                def distDir = new File(project.projectDir, "dist")
+                println distDir.absolutePath
+                distDir.exists()
+            }
 
             outputs.upToDateWhen {
                 new File(project.projectDir, "dist").exists()
