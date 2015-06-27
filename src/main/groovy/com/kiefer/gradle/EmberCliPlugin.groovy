@@ -71,6 +71,10 @@ class EmberCliPlugin implements Plugin<Project> {
             inputs.files "tests", "testem.json"
             outputs.dir "dist"
 
+            outputs.upToDateWhen {
+                new File(project.projectDir, "dist").exists()
+            }
+
             executable 'ember'
             args 'test'
         }
