@@ -7,7 +7,6 @@ buildscript {
     }
 }
 
-apply plugin: 'java-gradle-plugin'
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
@@ -22,9 +21,10 @@ repositories {
 }
 
 group = "com.kiefer.gradle"
-version = "1.0.0"
+version = "1.0.1-SNAPSHOT"
 
 dependencies {
+    compile gradleApi()
     compile localGroovy()
     testCompile 'org.testng:testng:6.9.4'
 }

@@ -2,21 +2,44 @@ package com.kiefer.gradle
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskInputs
-import org.gradle.api.tasks.bundling.Zip
 
 class EmberCliPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
-        project.buildDir = "$project.rootDir/build"
-        project.mkdir(project.buildDir)
-        project.mkdir(new File(project.buildDir, "libs"))
+        project.configure(project) {
+            apply plugin: "distribution"
 
-        project.tasks.create(name: 'clean', type: Delete) {
-            description "Remove ember cli dist and tmp directories"
-            delete "dist", project.buildDir
+            clean {
+                delete "dist", project.buildDir
+            }
+
+            distributions {
+                main {
+                    baseName = "$project.name-$project.version"
+                    contents  {
+                        into "/"
+                        from "dist"
+                    }
+                }
+            }
+
+            configurations {
+                js
+            }
+
+            distZip {
+                dependsOn "emberBuild"
+                inputs.dir "dist"
+                outputs.file "$project.buildDir/distributions/$project.name-${project.version}.zip"
+            }
+
+            artifacts {
+                js distZip
+            }
+
+            build.dependsOn assemble
         }
 
         project.tasks.create(name: 'npmInstall', type: Exec) {
@@ -62,30 +85,6 @@ class EmberCliPlugin implements Plugin<Project> {
             dependsOn 'npmInstall', 'bowerInstall', 'test'
             executable 'ember'
             args "build", "-prod"
-        }
-
-        project.tasks.create(name: 'emberPackage', type: Zip) {
-            description "Build the zip distribution of the ember application"
-            dependsOn "emberBuild"
-
-            baseName = project.name
-            version = project.version
-
-            from 'dist'
-            destinationDir = new File("${project.buildDir}/libs")
-        }
-
-        project.tasks.create(name: 'build') {
-            description "Execute the full ember build lifecycle"
-            dependsOn "emberPackage"
-        }
-
-        project.configurations {
-            js
-        }
-
-        project.artifacts {
-            js project.tasks.emberPackage
         }
 
     }

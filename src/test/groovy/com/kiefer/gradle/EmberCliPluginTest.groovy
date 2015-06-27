@@ -8,4 +8,9 @@ class EmberCliPluginTest extends EmberCliPluginSupport {
     void buildDirectoryIsConfigured() {
         assert project.buildDir == new File(project.rootDir, "build")
     }
+
+    @Test
+    void jsConfigurationExists() {
+        assert project.configurations.js
+    }
 }

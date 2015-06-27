@@ -10,9 +10,8 @@ class BuildTaskTest extends EmberCliPluginSupport {
     }
 
     @Test
-    void dependsOn() {
-        def task = project.tasks.build
-        assert task.dependsOn.contains('emberPackage')
+    void buildDependsOn() {
+        assert project.tasks.build.dependsOn.contains('assemble')
     }
 
 }
