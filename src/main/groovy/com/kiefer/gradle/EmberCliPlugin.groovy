@@ -21,6 +21,7 @@ class EmberCliPlugin implements Plugin<Project> {
                     contents  {
                         into "/"
                         from "dist"
+                        exclude ".gitkeep"
                     }
                 }
             }
