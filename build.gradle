@@ -22,7 +22,7 @@ repositories {
 }
 
 group = "com.kiefer.gradle"
-version = "1.0.3"
+version = "1.0.4-SNAPSHOT"
 
 dependencies {
     compile gradleApi()
