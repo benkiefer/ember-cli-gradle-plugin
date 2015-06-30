@@ -13,7 +13,7 @@ class EmberBuildTaskTest extends EmberCliPluginSupport {
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.emberBuild
         assert project.rootDir == task.workingDir
-        assert "ember" == task.executable
+        assert task.executable.contains("ember")
         assert ["build", "-prod"] == task.args
     }
 
@@ -24,7 +24,6 @@ class EmberBuildTaskTest extends EmberCliPluginSupport {
         assert task.dependsOn.contains('npmInstall')
         assert task.dependsOn.contains('bowerInstall')
     }
-
 
     @Test
     void inputsAndOutputs() {

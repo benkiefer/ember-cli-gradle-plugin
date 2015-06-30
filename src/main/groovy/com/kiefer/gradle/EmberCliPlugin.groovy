@@ -59,7 +59,7 @@ class EmberCliPlugin implements Plugin<Project> {
             inputs.file "bower.json"
             outputs.dir "bower_components"
 
-            executable 'bower'
+            executable findProgram(project, "bower")
             args 'install'
         }
 
@@ -81,7 +81,7 @@ class EmberCliPlugin implements Plugin<Project> {
                 new File(project.projectDir, "dist").exists()
             }
 
-            executable 'ember'
+            executable findProgram(project, "ember")
             args 'test'
         }
 
@@ -93,13 +93,21 @@ class EmberCliPlugin implements Plugin<Project> {
             outputs.dir "dist"
 
             dependsOn 'npmInstall', 'bowerInstall', 'test'
-            executable 'ember'
+            executable findProgram(project, "ember")
             args "build", "-prod"
         }
 
     }
 
-    private void applyAppInputs(TaskInputs inputs) {
+    private static String findProgram(project, String program) {
+        if (Program.onPath(program)) {
+            return program
+        }
+
+        return "$project.projectDir/node_modules/.bin/$program"
+    }
+
+    private static void applyAppInputs(TaskInputs inputs) {
         inputs.files "app", "config", "node_modules", "public", "vendor", "bower_components", "Brocfile.js"
     }
 }

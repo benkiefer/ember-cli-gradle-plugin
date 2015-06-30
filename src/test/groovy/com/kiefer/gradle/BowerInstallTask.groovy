@@ -13,7 +13,7 @@ class BowerInstallTask extends EmberCliPluginSupport {
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.bowerInstall
         assert project.rootDir == task.workingDir
-        assert "bower" == task.executable
+        assert task.executable.contains("bower")
         assert ["install"] == task.args
     }
 

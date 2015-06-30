@@ -12,7 +12,7 @@ class TestTaskTest extends EmberCliPluginSupport{
     @Test
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.test
-        assert "ember" == task.executable
+        assert task.executable.contains("ember")
         assert ["test"] == task.args
     }
 
