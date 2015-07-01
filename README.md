@@ -50,7 +50,7 @@ Example:
 ## The BowerInstall Task
 ---------
 
-Shells out to bower and executes the install command.
+Executes the bower install command. Also executes the NpmInstall task to ensure bower is available.
 
 Example:
 
