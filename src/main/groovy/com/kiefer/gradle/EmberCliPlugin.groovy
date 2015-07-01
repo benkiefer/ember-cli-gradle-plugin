@@ -56,6 +56,8 @@ class EmberCliPlugin implements Plugin<Project> {
         project.tasks.create(name: 'bowerInstall', type: Exec) {
             description "Install bower dependencies"
 
+            dependsOn 'npmInstall'
+
             inputs.file "bower.json"
             outputs.dir "bower_components"
 

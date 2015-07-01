@@ -10,6 +10,11 @@ class BowerInstallTask extends EmberCliPluginSupport {
     }
 
     @Test
+    void dependsOnNpm() {
+        assert project.tasks.bowerInstall.dependsOn.contains('npmInstall')
+    }
+
+    @Test
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.bowerInstall
         assert project.rootDir == task.workingDir
