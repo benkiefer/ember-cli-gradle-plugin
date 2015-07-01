@@ -7,6 +7,12 @@ The plugin expects that you have a global install of npm, bower, and ember cli, 
 
 Note: This plugin uses the Distribution plugin under the hood to create its zip artifact, so it will inherit tasks from that plugin.
 
+## Requirements
+---------
+
+ - A build task is necessary for this plugin to work. If you use Gradle 2.4 or later, you get this task for free as part of the default build lifecycle
+ - Java 8 or later
+
 ## Usage
 ---------
 
