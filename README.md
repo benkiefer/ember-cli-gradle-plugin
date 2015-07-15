@@ -62,6 +62,15 @@ Example:
 
      ./gradlew bowerInstall
 
+## The BowerUpdate Task
+---------
+
+Executes the bower update command. Also executes the NpmInstall task to ensure bower is available and the Bower Install task.
+
+Example:
+
+     ./gradlew bowerUpdate
+
 ## The Test Task
 ---------
 
