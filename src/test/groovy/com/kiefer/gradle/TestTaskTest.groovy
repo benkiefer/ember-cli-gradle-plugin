@@ -13,7 +13,10 @@ class TestTaskTest extends EmberCliPluginSupport{
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.test
         assert task.executable.contains("ember")
-        assert ["test"] == task.args
+        assert task.args.size() == 3
+        assert task.args.contains("test")
+        assert task.args.contains("--port")
+        assert Integer.parseInt(task.args[2])
     }
 
     @Test

@@ -96,7 +96,7 @@ class EmberCliPlugin implements Plugin<Project> {
             }
 
             executable findProgram(project, "ember")
-            args 'test'
+            args 'test', '--port', openPort()
         }
 
         project.tasks.create(name: 'emberBuild', type: Exec) {
@@ -111,6 +111,13 @@ class EmberCliPlugin implements Plugin<Project> {
             args "build", "-prod"
         }
 
+    }
+
+    private static int openPort() {
+        ServerSocket socket = new ServerSocket(0)
+        def port = socket.localPort
+        socket.close()
+        port
     }
 
     private static String findProgram(project, String program) {
