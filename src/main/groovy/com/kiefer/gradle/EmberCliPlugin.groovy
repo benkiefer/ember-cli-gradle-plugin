@@ -8,6 +8,8 @@ import org.gradle.api.tasks.TaskInputs
 class EmberCliPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
+        project.extensions.create("embercli", EmberCliPluginExtension)
+
         project.configure(project) {
             apply plugin: "distribution"
 
@@ -43,74 +45,76 @@ class EmberCliPlugin implements Plugin<Project> {
             build.dependsOn assemble
         }
 
-        project.tasks.create(name: 'npmInstall', type: Exec) {
-            description "Install npm dependencies"
+        project.afterEvaluate {
+            project.tasks.create(name: 'npmInstall', type: Exec) {
+                description "Install npm dependencies"
 
-            inputs.file "package.json"
-            outputs.dir "node_modules"
+                inputs.file "package.json"
+                outputs.dir "node_modules"
 
-            executable 'npm'
-            args 'install'
-        }
-
-        project.tasks.create(name: 'bowerInstall', type: Exec) {
-            description "Install bower dependencies"
-
-            dependsOn 'npmInstall'
-
-            inputs.file "bower.json"
-            outputs.dir "bower_components"
-
-            executable findProgram(project, "bower")
-            args 'install'
-        }
-
-        project.tasks.create(name: 'bowerUpdate', type: Exec) {
-            description "Update bower dependencies"
-
-            dependsOn 'npmInstall', 'bowerInstall'
-
-            inputs.file "bower.json"
-            outputs.dir "bower_components"
-
-            executable findProgram(project, "bower")
-            args 'update'
-        }
-
-        project.tasks.create(name: 'test', type: Exec) {
-            description "Execute ember tests"
-
-            dependsOn 'npmInstall', 'bowerInstall', 'bowerUpdate'
-
-            applyAppInputs inputs
-            inputs.files "tests", "testem.json"
-            outputs.dir "dist"
-            outputs.upToDateWhen {
-                def distDir = new File(project.projectDir, "dist")
-                println distDir.absolutePath
-                distDir.exists()
+                executable 'npm'
+                args 'install'
             }
 
-            outputs.upToDateWhen {
-                new File(project.projectDir, "dist").exists()
+            project.tasks.create(name: 'bowerInstall', type: Exec) {
+                description "Install bower dependencies"
+
+                dependsOn 'npmInstall'
+
+                inputs.file "bower.json"
+                outputs.dir "bower_components"
+
+                executable findProgram(project, "bower")
+                args 'install'
             }
 
-            executable findProgram(project, "ember")
-            args 'test', '--port', openPort()
+            project.tasks.create(name: 'bowerUpdate', type: Exec) {
+                description "Update bower dependencies"
+
+                dependsOn 'npmInstall', 'bowerInstall'
+
+                inputs.file "bower.json"
+                outputs.dir "bower_components"
+
+                executable findProgram(project, "bower")
+                args 'update'
+            }
+
+            project.tasks.create(name: 'test', type: Exec) {
+                description "Execute ember tests"
+
+                dependsOn 'npmInstall', 'bowerInstall', 'bowerUpdate'
+
+                applyAppInputs inputs
+                inputs.files "tests", "testem.json"
+                outputs.dir "dist"
+                outputs.upToDateWhen {
+                    def distDir = new File(project.projectDir, "dist")
+                    println distDir.absolutePath
+                    distDir.exists()
+                }
+
+                outputs.upToDateWhen {
+                    new File(project.projectDir, "dist").exists()
+                }
+
+                executable findProgram(project, "ember")
+                args 'test', '--port', openPort()
+            }
+
+            project.tasks.create(name: 'emberBuild', type: Exec) {
+                description "Execute ember build"
+
+                applyAppInputs inputs
+
+                outputs.dir "dist"
+
+                dependsOn 'npmInstall', 'bowerInstall', 'bowerUpdate', 'test'
+                executable findProgram(project, "ember")
+
+                args "build", "--environment", project.embercli.environment
+            }
         }
-
-        project.tasks.create(name: 'emberBuild', type: Exec) {
-            description "Execute ember build"
-
-            applyAppInputs inputs
-
-            outputs.dir "dist"
-
-            dependsOn 'npmInstall', 'bowerInstall', 'bowerUpdate', 'test'
-            executable findProgram(project, "ember")
-            args "build", "-prod"
-        }
-
     }
 
     private static int openPort() {
@@ -131,4 +135,8 @@ class EmberCliPlugin implements Plugin<Project> {
     private static void applyAppInputs(TaskInputs inputs) {
         inputs.files "app", "config", "node_modules", "public", "vendor", "bower_components", "Brocfile.js"
     }
+}
+
+class EmberCliPluginExtension {
+    String environment = "production"
 }

@@ -14,7 +14,7 @@ class EmberBuildTaskTest extends EmberCliPluginSupport {
         def task = project.tasks.emberBuild
         assert project.rootDir == task.workingDir
         assert task.executable.contains("ember")
-        assert ["build", "-prod"] == task.args
+        assert ["build", "--environment", "production"] == task.args
     }
 
     @Test

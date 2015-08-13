@@ -13,6 +13,7 @@ abstract class EmberCliPluginSupport {
     void setUp() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
         project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.evaluate()
     }
 
     protected boolean hasInput(Task task, File file) {
