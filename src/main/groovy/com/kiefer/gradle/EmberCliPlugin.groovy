@@ -53,7 +53,12 @@ class EmberCliPlugin implements Plugin<Project> {
                 outputs.dir "node_modules"
 
                 executable 'npm'
-                args 'install'
+
+                if (project.embercli.npmRegistry) {
+                    args '--registry', project.embercli.npmRegistry, 'install'
+                } else {
+                    args 'install'
+                }
             }
 
             project.tasks.create(name: 'bowerInstall', type: Exec) {
@@ -139,4 +144,5 @@ class EmberCliPlugin implements Plugin<Project> {
 
 class EmberCliPluginExtension {
     String environment = "production"
+    String npmRegistry
 }
