@@ -33,12 +33,13 @@ Then run:
 
      ./gradlew clean build
 
-If you need to configure the build environment for your project to something other than production, you can do so by setting the environment after you've applied the plugin.
+If you need to configure the plugin beyond its default settings, you can do so with the following options.
 
      apply plugin: "com.kiefer.gradle.embercli"
 
      embercli {
           environment = "development"
+          npmRegistry = "https://my-custom-npm-registry.com"
      }
 
 For a more complete example including extraction into a project, check out my [sample project](https://github.com/benkiefer/gradle-ember-cli-example).
