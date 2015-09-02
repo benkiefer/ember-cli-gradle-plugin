@@ -138,7 +138,8 @@ class EmberCliPlugin implements Plugin<Project> {
     }
 
     private static void applyAppInputs(TaskInputs inputs) {
-        inputs.files "app", "config", "node_modules", "public", "vendor", "bower_components", "Brocfile.js"
+        inputs.files "app", "config", "node_modules", "public", "vendor", "bower_components", "Brocfile.js",
+            "package.json", "bower.json"
     }
 }
 
