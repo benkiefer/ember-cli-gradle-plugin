@@ -10,6 +10,7 @@ Note: This plugin uses the Distribution plugin under the hood to create its zip 
 ## Requirements
 ---------
 
+ - As of version 2.0.0, you must have at least ember-cli version 1.13.6 to have parallel builds work correctly. This is due to a breaking change that occurred in [Ember CLI](https://github.com/ember-cli/ember-cli/pull/3239).
  - A build task is necessary for this plugin to work. If you use Gradle 2.4 or later, you get this task for free as part of the default build lifecycle
  - Java 8 or later
 
