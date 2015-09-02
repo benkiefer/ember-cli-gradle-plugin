@@ -104,10 +104,7 @@ class EmberCliPlugin implements Plugin<Project> {
                     new File(project.projectDir, "dist").exists()
                 }
 
-                def packageJson = new JsonSlurper().parse(project.file("package.json"))
-                long emberVersion = packageJson.devDependencies."ember-cli".split(/\./).inject(0L) { long result, String component ->
-                    (result * 100L) + (component as long)
-                }
+                long emberVersion = extractEmberVersion project
 
                 executable findProgram(project, "ember")
 
@@ -131,6 +128,14 @@ class EmberCliPlugin implements Plugin<Project> {
                 args "build", "--environment", project.embercli.environment
             }
         }
+    }
+
+    private static long extractEmberVersion(Project project) {
+        def packageJson = new JsonSlurper().parse(project.file("package.json"))
+        long emberVersion = packageJson.devDependencies."ember-cli".split(/\./).inject(0L) { long result, String component ->
+            (result * 100L) + (component as long)
+        }
+        emberVersion
     }
 
     private static int openPort() {
