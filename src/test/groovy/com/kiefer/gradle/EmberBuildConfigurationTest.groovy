@@ -16,8 +16,6 @@ class EmberBuildConfigurationTest extends EmberCliPluginSupport {
             environment = "development"
         }
 
-        createPackageJson()
-
         project.evaluate()
     }
 

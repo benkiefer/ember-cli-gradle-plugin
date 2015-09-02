@@ -1,10 +1,8 @@
 package com.kiefer.gradle
-
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskInputs
-import groovy.json.JsonSlurper
 
 class EmberCliPlugin implements Plugin<Project> {
     @Override
@@ -104,15 +102,9 @@ class EmberCliPlugin implements Plugin<Project> {
                     new File(project.projectDir, "dist").exists()
                 }
 
-                long emberVersion = extractEmberVersion project
-
                 executable findProgram(project, "ember")
 
-                if (emberVersion > 1_13_05) {
-                    args 'test', '--test-port', openPort()
-                } else {
-                    args 'test', '--port', openPort()
-                }
+                args 'test', '--test-port=-1'
             }
 
             project.tasks.create(name: 'emberBuild', type: Exec) {
@@ -128,21 +120,6 @@ class EmberCliPlugin implements Plugin<Project> {
                 args "build", "--environment", project.embercli.environment
             }
         }
-    }
-
-    private static long extractEmberVersion(Project project) {
-        def packageJson = new JsonSlurper().parse(project.file("package.json"))
-        long emberVersion = packageJson.devDependencies."ember-cli".split(/\./).inject(0L) { long result, String component ->
-            (result * 100L) + (component as long)
-        }
-        emberVersion
-    }
-
-    private static int openPort() {
-        ServerSocket socket = new ServerSocket(0)
-        def port = socket.localPort
-        socket.close()
-        port
     }
 
     private static String findProgram(project, String program) {

@@ -16,8 +16,6 @@ class NpmInstallConfigurationTest extends EmberCliPluginSupport {
             npmRegistry = "foo"
         }
 
-        createPackageJson()
-
         project.evaluate()
     }
 
