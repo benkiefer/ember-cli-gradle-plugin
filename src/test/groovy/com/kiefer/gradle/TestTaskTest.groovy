@@ -2,8 +2,7 @@ package com.kiefer.gradle
 
 import org.testng.annotations.Test
 
-class TestTaskTest extends EmberCliPluginSupport{
-
+class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void tasksAreRegistered() {
         assert project.tasks.test
@@ -15,7 +14,7 @@ class TestTaskTest extends EmberCliPluginSupport{
         assert task.executable.contains("ember")
         assert task.args.size() == 3
         assert task.args.contains("test")
-        assert task.args.contains("--port")
+        assert task.args.contains("--port") || task.args.contains("--test-port")
         assert Integer.parseInt(task.args[2])
     }
 

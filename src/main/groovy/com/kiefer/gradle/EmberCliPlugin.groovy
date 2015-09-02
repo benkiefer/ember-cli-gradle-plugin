@@ -4,6 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskInputs
+import groovy.json.JsonSlurper
 
 class EmberCliPlugin implements Plugin<Project> {
     @Override
@@ -103,8 +104,18 @@ class EmberCliPlugin implements Plugin<Project> {
                     new File(project.projectDir, "dist").exists()
                 }
 
+                def packageJson = new JsonSlurper().parse(project.file("package.json"))
+                long emberVersion = packageJson.devDependencies."ember-cli".split(/\./).inject(0L) { long result, String component ->
+                    (result * 100L) + (component as long)
+                }
+
                 executable findProgram(project, "ember")
-                args 'test', '--port', openPort()
+
+                if (emberVersion > 1_13_05) {
+                    args 'test', '--test-port', openPort()
+                } else {
+                    args 'test', '--port', openPort()
+                }
             }
 
             project.tasks.create(name: 'emberBuild', type: Exec) {

@@ -1,13 +1,11 @@
 package com.kiefer.gradle
 
-import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
-class EmberBuildConfigurationTest {
+class EmberBuildConfigurationTest extends EmberCliPluginSupport {
     final String PROJECT_NAME = "projectName";
-    Project project;
 
     @BeforeMethod
     void setUp() {
@@ -17,6 +15,8 @@ class EmberBuildConfigurationTest {
         project.embercli {
             environment = "development"
         }
+
+        createPackageJson()
 
         project.evaluate()
     }
@@ -28,5 +28,4 @@ class EmberBuildConfigurationTest {
         assert task.executable.contains("ember")
         assert ["build", "--environment", "development"] == task.args
     }
-
 }

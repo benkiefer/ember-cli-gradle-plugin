@@ -1,13 +1,11 @@
 package com.kiefer.gradle
 
-import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
-class NpmInstallConfigurationTest {
+class NpmInstallConfigurationTest extends EmberCliPluginSupport {
     final String PROJECT_NAME = "projectName";
-    Project project;
 
     @BeforeMethod
     void setUp() {
@@ -17,6 +15,8 @@ class NpmInstallConfigurationTest {
         project.embercli {
             npmRegistry = "foo"
         }
+
+        createPackageJson()
 
         project.evaluate()
     }
