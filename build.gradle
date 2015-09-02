@@ -78,7 +78,7 @@ bintray {
         labels = ['ember', 'gradle', 'plugin', 'ember-cli']
         publicDownloadNumbers = true
         version {
-            description = 'A plugin for building Ember Cli Projects with Gradle'
+            description = 'A plugin for building Ember CLI projects with Gradle'
             name = project.version
             vcsTag = project.version
         }

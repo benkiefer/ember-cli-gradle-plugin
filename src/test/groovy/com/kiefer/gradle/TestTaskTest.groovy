@@ -2,8 +2,7 @@ package com.kiefer.gradle
 
 import org.testng.annotations.Test
 
-class TestTaskTest extends EmberCliPluginSupport{
-
+class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void tasksAreRegistered() {
         assert project.tasks.test
@@ -15,7 +14,7 @@ class TestTaskTest extends EmberCliPluginSupport{
         assert task.executable.contains("ember")
         assert task.args.size() == 3
         assert task.args.contains("test")
-        assert task.args.contains("--port")
+        assert task.args.contains("--port") || task.args.contains("--test-port")
         assert Integer.parseInt(task.args[2])
     }
 
@@ -32,6 +31,8 @@ class TestTaskTest extends EmberCliPluginSupport{
         assert task.inputs.hasInputs
 
         assert hasInput(task, new File(project.rootDir, 'Brocfile.js'))
+        assert hasInput(task, new File(project.rootDir, 'package.json'))
+        assert hasInput(task, new File(project.rootDir, 'bower.json'))
         assert hasInput(task, new File(project.rootDir, 'config'))
         assert hasInput(task, new File(project.rootDir, 'node_modules'))
         assert hasInput(task, new File(project.rootDir, 'bower_components'))
