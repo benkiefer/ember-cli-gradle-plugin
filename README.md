@@ -3,7 +3,7 @@
 
 A plugin for building Ember CLI projects with gradle.
 
-The plugin expects that you have a global install of npm, bower, and ember cli, which you would need if you were going to run a CLI project.
+The plugin expects that you have a global install of npm, and that bower and ember-cli are installed as NPM dependencies of your project.
 
 Note: This plugin uses the Distribution plugin under the hood to create its zip artifact, so it will inherit tasks from that plugin.
 
