@@ -4,7 +4,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
-class NpmInstallConfigurationTest extends EmberCliPluginSupport {
+class BowerComponentsConfigurationTest extends EmberCliPluginSupport {
     final String PROJECT_NAME = "projectName";
 
     @BeforeMethod
@@ -13,8 +13,7 @@ class NpmInstallConfigurationTest extends EmberCliPluginSupport {
         project.pluginManager.apply "com.kiefer.gradle.embercli"
 
         project.embercli {
-            npmRegistry = "foo"
-            trackNodeModulesContents = false
+            trackBowerComponentsContents = false
         }
 
         project.evaluate()
@@ -22,15 +21,13 @@ class NpmInstallConfigurationTest extends EmberCliPluginSupport {
     }
 
     @Test
-    void taskExecutesAppropriateCommand() {
-        def task = project.tasks.npmInstall
-        assert ["--registry", "foo", "install"] == task.args
-    }
-
-    @Test
-    void nodeModulesAreOutputs() {
-        def task = project.tasks.npmInstall
+    void bowerComponentsAreOutputs() {
+        def task = project.tasks.bowerInstall
         assert task.outputs.hasOutput
-        assert hasOutput(task, new File(project.rootDir, 'node_modules'))
+        assert hasOutput(task, new File(project.rootDir, 'bower_components'))
+
+        task = project.tasks.bowerUpdate
+        assert task.outputs.hasOutput
+        assert hasOutput(task, new File(project.rootDir, 'bower_components'))
     }
 }

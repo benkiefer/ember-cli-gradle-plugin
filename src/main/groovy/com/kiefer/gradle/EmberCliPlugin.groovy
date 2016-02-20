@@ -49,7 +49,12 @@ class EmberCliPlugin implements Plugin<Project> {
                 description "Install npm dependencies"
 
                 inputs.file "package.json"
-                outputs.dir "node_modules"
+
+                if (project.embercli.trackNodeModulesContents) {
+                    outputs.dir "node_modules"
+                } else {
+                    outputs.file "node_modules"
+                }
 
                 executable 'npm'
 
@@ -66,7 +71,12 @@ class EmberCliPlugin implements Plugin<Project> {
                 dependsOn 'npmInstall'
 
                 inputs.file "bower.json"
-                outputs.dir "bower_components"
+
+                if (project.embercli.trackBowerComponentsContents) {
+                    outputs.dir "bower_components"
+                } else {
+                    outputs.file "bower_components"
+                }
 
                 executable findProgram(project, "bower")
                 args 'install'
@@ -78,7 +88,12 @@ class EmberCliPlugin implements Plugin<Project> {
                 dependsOn 'npmInstall', 'bowerInstall'
 
                 inputs.file "bower.json"
-                outputs.dir "bower_components"
+
+                if (project.embercli.trackBowerComponentsContents) {
+                    outputs.dir "bower_components"
+                } else {
+                    outputs.file "bower_components"
+                }
 
                 executable findProgram(project, "bower")
                 args 'update'
@@ -139,4 +154,6 @@ class EmberCliPlugin implements Plugin<Project> {
 class EmberCliPluginExtension {
     String environment = "production"
     String npmRegistry
+    boolean trackNodeModulesContents = true
+    boolean trackBowerComponentsContents = true
 }
