@@ -39,8 +39,17 @@ If you need to configure the plugin beyond its default settings, you can do so w
      apply plugin: "com.kiefer.gradle.embercli"
 
      embercli {
+          // toggle the build environment
           environment = "development"
+
+          // point to a different npm registry
           npmRegistry = "https://my-custom-npm-registry.com"
+
+          // use only the presence of the node modules folder to determine up to date status, not all its contents
+          trackNodeModulesContents = false
+
+          // use only the presence of the bower components folder to determine up to date status, not all its contents
+          trackBowerComponentsContents = false
      }
 
 For a more complete example including extraction into a project, check out my [sample project](https://github.com/benkiefer/gradle-ember-cli-example).
