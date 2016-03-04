@@ -1,5 +1,6 @@
 package com.kiefer.gradle
 
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.testng.annotations.Test
 
 class TestTaskTest extends EmberCliPluginSupport {
@@ -11,10 +12,19 @@ class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.test
-        assert task.executable.contains("ember")
-        assert task.args.size() == 2
-        assert task.args.contains("test")
-        assert task.args.contains("--test-port=-1")
+        if(Os.isFamily(Os.FAMILY_WINDOWS)) {
+            assert "cmd" == task.executable
+            assert task.args.size() == 4
+            assert task.args.contains("/c")
+            assert task.args.contains("ember")
+            assert task.args.contains("test")
+            assert task.args.contains("--test-port=-1")
+        } else {
+            assert task.executable.contains("ember")
+            assert task.args.size() == 2
+            assert task.args.contains("test")
+            assert task.args.contains("--test-port=-1")
+        }
     }
 
     @Test

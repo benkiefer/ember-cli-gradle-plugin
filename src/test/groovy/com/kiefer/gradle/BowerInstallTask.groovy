@@ -1,5 +1,6 @@
 package com.kiefer.gradle
 
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.testng.annotations.Test
 
 class BowerInstallTask extends EmberCliPluginSupport {
@@ -18,8 +19,16 @@ class BowerInstallTask extends EmberCliPluginSupport {
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.bowerInstall
         assert project.rootDir == task.workingDir
-        assert task.executable.contains("bower")
-        assert ["install"] == task.args
+        if(Os.isFamily(Os.FAMILY_WINDOWS)) {
+            assert "cmd" == task.executable
+            assert task.args.size() == 3
+            assert task.args.contains("/c")
+            assert task.args.contains("bower")
+            assert task.args.contains("install")
+        } else {
+            assert task.executable.contains("bower")
+            assert ["install"] == task.args
+        }
     }
 
     @Test
