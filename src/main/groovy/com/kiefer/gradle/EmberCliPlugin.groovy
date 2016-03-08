@@ -1,11 +1,10 @@
 package com.kiefer.gradle
 
-import com.sun.org.apache.xpath.internal.operations.Bool
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskInputs
-import org.apache.tools.ant.taskdefs.condition.Os
 
 class EmberCliPlugin implements Plugin<Project> {
     @Override
