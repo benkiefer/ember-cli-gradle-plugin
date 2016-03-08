@@ -1,5 +1,6 @@
 package com.kiefer.gradle
 
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.testfixtures.ProjectBuilder
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
@@ -24,7 +25,11 @@ class NpmInstallConfigurationTest extends EmberCliPluginSupport {
     @Test
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.npmInstall
-        assert ["--registry", "foo", "install"] == task.args
+        if(Os.isFamily(Os.FAMILY_WINDOWS)) {
+            assert ["/c", "npm", "--registry", "foo", "install"] == task.args
+        } else {
+            assert ["--registry", "foo", "install"] == task.args
+        }
     }
 
     @Test

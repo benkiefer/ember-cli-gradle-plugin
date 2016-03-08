@@ -1,5 +1,6 @@
 package com.kiefer.gradle
 
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.testng.annotations.Test
 
 class EmberBuildTaskTest extends EmberCliPluginSupport {
@@ -13,8 +14,18 @@ class EmberBuildTaskTest extends EmberCliPluginSupport {
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.emberBuild
         assert project.rootDir == task.workingDir
-        assert task.executable.contains("ember")
-        assert ["build", "--environment", "production"] == task.args
+        if(Os.isFamily(Os.FAMILY_WINDOWS)) {
+            assert "cmd" == task.executable
+            assert task.args.size() == 5
+            assert task.args.contains("/c")
+            assert task.args.contains("ember")
+            assert task.args.contains("build")
+            assert task.args.contains("--environment")
+            assert task.args.contains("production")
+        } else {
+            assert task.executable.contains("ember")
+            assert ["build", "--environment", "production"] == task.args
+        }
     }
 
     @Test

@@ -1,8 +1,11 @@
 package com.kiefer.gradle
+
+import com.sun.org.apache.xpath.internal.operations.Bool
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskInputs
+import org.apache.tools.ant.taskdefs.condition.Os
 
 class EmberCliPlugin implements Plugin<Project> {
     @Override
@@ -56,7 +59,12 @@ class EmberCliPlugin implements Plugin<Project> {
                     outputs.file "node_modules"
                 }
 
-                executable 'npm'
+                if(isWindows()) {
+                    executable 'cmd'
+                    args '/c', 'npm'
+                } else {
+                    executable 'npm'
+                }
 
                 if (project.embercli.npmRegistry) {
                     args '--registry', project.embercli.npmRegistry, 'install'
@@ -78,7 +86,13 @@ class EmberCliPlugin implements Plugin<Project> {
                     outputs.file "bower_components"
                 }
 
-                executable findProgram(project, "bower")
+                if(isWindows()) {
+                    executable 'cmd'
+                    args '/c', findProgram(project, "bower")
+                } else {
+                    executable findProgram(project, "bower")
+                }
+
                 args 'install'
             }
 
@@ -95,7 +109,12 @@ class EmberCliPlugin implements Plugin<Project> {
                     outputs.file "bower_components"
                 }
 
-                executable findProgram(project, "bower")
+                if(isWindows()) {
+                    executable 'cmd'
+                    args '/c', findProgram(project, "bower")
+                } else {
+                    executable findProgram(project, "bower")
+                }
                 args 'update'
             }
 
@@ -117,7 +136,12 @@ class EmberCliPlugin implements Plugin<Project> {
                     new File(project.projectDir, "dist").exists()
                 }
 
-                executable findProgram(project, "ember")
+                if(isWindows()) {
+                    executable 'cmd'
+                    args '/c', findProgram(project, "ember")
+                } else {
+                    executable findProgram(project, "ember")
+                }
 
                 args 'test', '--test-port=-1'
             }
@@ -130,11 +154,21 @@ class EmberCliPlugin implements Plugin<Project> {
                 outputs.dir "dist"
 
                 dependsOn 'npmInstall', 'bowerInstall', 'bowerUpdate', 'test'
-                executable findProgram(project, "ember")
+
+                if(isWindows()) {
+                    executable 'cmd'
+                    args '/c', findProgram(project, "ember")
+                } else {
+                    executable findProgram(project, "ember")
+                }
 
                 args "build", "--environment", project.embercli.environment
             }
         }
+    }
+
+    private static Boolean isWindows() {
+        return Os.isFamily(Os.FAMILY_WINDOWS);
     }
 
     private static String findProgram(project, String program) {

@@ -1,5 +1,6 @@
 package com.kiefer.gradle
 
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.testng.annotations.Test
 
 class NpmInstallTask extends EmberCliPluginSupport {
@@ -13,8 +14,13 @@ class NpmInstallTask extends EmberCliPluginSupport {
     void taskExecutesAppropriateCommand() {
         def task = project.tasks.npmInstall
         assert project.rootDir == task.workingDir
-        assert "npm" == task.executable
-        assert ["install"] == task.args
+        if(Os.isFamily(Os.FAMILY_WINDOWS)) {
+            assert "cmd" == task.executable
+            assert ["/c", "npm", "install"] == task.args
+        } else {
+            assert "npm" == task.executable
+            assert ["install"] == task.args
+        }
     }
 
     @Test
