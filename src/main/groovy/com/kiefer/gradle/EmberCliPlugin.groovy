@@ -1,6 +1,7 @@
 package com.kiefer.gradle
 
 import org.apache.tools.ant.taskdefs.condition.Os
+import org.apache.tools.ant.util.TeeOutputStream
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
@@ -140,6 +141,14 @@ class EmberCliPlugin implements Plugin<Project> {
                     args '/c', findProgram(project, "ember")
                 } else {
                     executable findProgram(project, "ember")
+                }
+
+                doFirst {
+                    def reportDirectory = "${project.buildDir}/reports"
+                    project.delete reportDirectory
+                    project.mkdir reportDirectory
+                    standardOutput = new TeeOutputStream(
+                            new FileOutputStream("$reportDirectory/ember-test-results.txt"), System.out);
                 }
 
                 args 'test', '--test-port=-1'
