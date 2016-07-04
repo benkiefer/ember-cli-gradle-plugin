@@ -19,7 +19,9 @@ public class Program {
             }
 
             for (String extension : extensions) {
-                if (new File(path, program + extension).exists()) {
+                File file = new File(path, program + extension);
+                System.out.println(file.getAbsolutePath());
+                if (file.exists()) {
                     return true;
                 }
             }
