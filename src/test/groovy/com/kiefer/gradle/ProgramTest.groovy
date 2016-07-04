@@ -4,7 +4,7 @@ import org.testng.annotations.Test
 
 class ProgramTest {
     @Test
-    void javaIsOnPathgi() {
+    void javaIsOnPath() {
         assert Program.onPath("java")
     }
 }
