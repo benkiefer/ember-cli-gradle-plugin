@@ -8,9 +8,24 @@ import java.util.stream.Stream;
 
 public class Program {
     public static boolean onPath(String program) {
-        return Stream.of(System.getenv("PATH").split(Pattern.quote(File.pathSeparator)))
-                .map(Paths::get)
-                .anyMatch(path -> Files.exists(path.resolve(program)));
+
+        String[] paths = System.getenv("PATH").split(Pattern.quote(File.pathSeparator));
+        String pathExtEnv = System.getenv("PATHEXT");
+        String[] extensions = pathExtEnv != null ? pathExtEnv.split(Pattern.quote(File.separator)) : new String[0];
+
+        for (String path : paths) {
+            if (new File(path, program).exists()) {
+                return true;
+            }
+
+            for (String extension : extensions) {
+                if (new File(path, program + "." + extension).exists()) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 
     private Program () {}
