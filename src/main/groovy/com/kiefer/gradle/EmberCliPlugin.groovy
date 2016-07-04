@@ -124,7 +124,7 @@ class EmberCliPlugin implements Plugin<Project> {
                 dependsOn 'npmInstall', 'bowerInstall', 'bowerUpdate'
 
                 applyAppInputs inputs
-                inputs.files "tests", "testem.json"
+                inputs.files "tests", "testem.json", "testem.js"
                 outputs.dir "dist"
                 outputs.upToDateWhen {
                     def distDir = new File(project.projectDir, "dist")

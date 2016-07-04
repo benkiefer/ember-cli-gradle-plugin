@@ -50,6 +50,7 @@ class TestTaskTest extends EmberCliPluginSupport {
         assert hasInput(task, new File(project.rootDir, 'vendor'))
         assert hasInput(task, new File(project.rootDir, 'tests'))
         assert hasInput(task, new File(project.rootDir, 'testem.json'))
+        assert hasInput(task, new File(project.rootDir, 'testem.js'))
 
         assert task.outputs.hasOutput
         assert hasOutput(task, new File(project.rootDir, 'dist'))
