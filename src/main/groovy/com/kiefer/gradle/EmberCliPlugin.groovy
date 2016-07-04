@@ -17,6 +17,7 @@ class EmberCliPlugin implements Plugin<Project> {
 
             clean {
                 delete "dist", project.buildDir
+                delete "tmp", project.buildDir
             }
 
             distributions {

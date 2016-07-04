@@ -42,7 +42,7 @@ class CleanTaskTest {
         project.tasks.clean.execute()
 
         assert app.exists()
-        assert tmp.exists()
+        assert !tmp.exists()
         assert !dist.exists()
         assert !build.exists()
     }
