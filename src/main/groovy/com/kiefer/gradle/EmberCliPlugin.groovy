@@ -45,6 +45,8 @@ class EmberCliPlugin implements Plugin<Project> {
             }
 
             build.dependsOn assemble
+            check.dependsOn "test"
+            build.dependsOn "check"
         }
 
         project.afterEvaluate {
@@ -172,6 +174,7 @@ class EmberCliPlugin implements Plugin<Project> {
 
                 args "build", "--environment", project.embercli.environment
             }
+
         }
     }
 

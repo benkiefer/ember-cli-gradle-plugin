@@ -12,6 +12,7 @@ class BuildTaskTest extends EmberCliPluginSupport {
     @Test
     void buildDependsOn() {
         assert project.tasks.build.dependsOn.contains('assemble')
+        assert project.tasks.build.dependsOn.contains('check')
     }
 
 }
