@@ -7,6 +7,8 @@ The plugin expects that you have a global install of npm, and that bower and emb
 
 Note: This plugin uses the Distribution plugin under the hood to create its zip artifact, so it will inherit tasks from that plugin.
 
+This plugin's task structure mimis that of the Gradle Java Plugin. The `build` task built into gradle depends on `check` and `assemble`. `check` is responsible for running tests, and `assemble is responsible for creating the build artifacts.
+
 ## Requirements
 ---------
 
@@ -57,7 +59,7 @@ For a more complete example including extraction into a project, check out my [s
 ## The Clean Task
 ---------
 
-An independent task that removes the `dist` directories.
+An independent task that removes the `dist` and `tmp` directories.
 
 Example:
 
@@ -93,7 +95,7 @@ Example:
 ## The Test Task
 ---------
 
-Shells out to Ember CLI and executes the test command. Also executes the BowerInstall and NpmInstall tasks.
+Shells out to Ember CLI and executes the test command. Also executes the BowerInstall and NpmInstall tasks. The `check` task depends on `test`.
 
 Example:
 
@@ -102,7 +104,7 @@ Example:
 ## The EmberBuild Task
 ---------
 
-Shells out to Ember CLI and executes the build command with a production environment target. Also executes the Test, NpmInstall, and BowerInstall task.
+Shells out to Ember CLI and executes the build command with a production environment target. Also executes the Test, NpmInstall, and BowerInstall task. The `assemble` task depends on `emberBuild`.
 
 Example:
 
