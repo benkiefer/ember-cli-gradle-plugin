@@ -19,7 +19,7 @@ public class Program {
             }
 
             for (String extension : extensions) {
-                if (new File(path, program + "." + extension).exists()) {
+                if (new File(path, program + extension).exists()) {
                     return true;
                 }
             }
