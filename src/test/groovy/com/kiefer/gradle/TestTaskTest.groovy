@@ -14,16 +14,14 @@ class TestTaskTest extends EmberCliPluginSupport {
         def task = project.tasks.test
         if(Os.isFamily(Os.FAMILY_WINDOWS)) {
             assert "cmd" == task.executable
-            assert task.args.size() == 4
+            assert task.args.size() == 3
             assert task.args.contains("/c")
             assert task.args.contains("ember")
             assert task.args.contains("test")
-            assert task.args.contains("--test-port=-1")
         } else {
             assert task.executable.contains("ember")
-            assert task.args.size() == 2
+            assert task.args.size() == 1
             assert task.args.contains("test")
-            assert task.args.contains("--test-port=-1")
         }
     }
 

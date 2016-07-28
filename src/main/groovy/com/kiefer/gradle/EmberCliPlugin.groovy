@@ -154,7 +154,7 @@ class EmberCliPlugin implements Plugin<Project> {
                             new FileOutputStream("$reportDirectory/ember-test-results.txt"), System.out);
                 }
 
-                args 'test', '--test-port=-1'
+                args 'test'
             }
 
             project.tasks.create(name: 'emberBuild', type: Exec) {
