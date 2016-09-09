@@ -154,7 +154,8 @@ class EmberCliPlugin implements Plugin<Project> {
                             new FileOutputStream("$reportDirectory/ember-test-results.txt"), System.out);
                 }
 
-                args 'test'
+                String testCommand = project.embercli.testCommand ?: "test"
+                args testCommand
 
                 project.embercli.testArguments?.each {
                     args it
@@ -205,6 +206,7 @@ class EmberCliPluginExtension {
     String environment = "production"
     String npmRegistry
     List<String> testArguments = ["--test-port=-1"]
+    String testCommand = "test"
     boolean trackNodeModulesContents = true
     boolean trackBowerComponentsContents = true
 }
