@@ -55,7 +55,7 @@ If you need to configure the plugin beyond its default settings, you can do so w
 
           // use to override the command for testing (ex: exam)
           testCommand = "test"
-          
+
           // use to override the arguments that are provided to the test command
           testArguments = ["--test-port=-1"]
      }
