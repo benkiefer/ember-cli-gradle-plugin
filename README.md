@@ -52,6 +52,12 @@ If you need to configure the plugin beyond its default settings, you can do so w
 
           // use only the presence of the bower components folder to determine up to date status, not all its contents
           trackBowerComponentsContents = false
+
+          // use to override the command for testing (ex: exam)
+          testCommand = "test"
+          
+          // use to override the arguments that are provided to the test command
+          testArguments = ["--test-port=-1"]
      }
 
 For a more complete example including extraction into a project, check out my [sample project](https://github.com/benkiefer/gradle-ember-cli-example).
