@@ -9,6 +9,11 @@ Note: This plugin uses the Distribution plugin under the hood to create its zip 
 
 This plugin's task structure mimis that of the Gradle Java Plugin. The `build` task built into gradle depends on `check` and `assemble`. `check` is responsible for running tests, and `assemble is responsible for creating the build artifacts.
 
+## Notes
+---------
+
+As of version 3.2.0, we no longer support the environment configuration property. The build defaults are now the same, but you should switch to using the buildArguments property instead.
+
 ## Requirements
 ---------
 
@@ -41,9 +46,6 @@ If you need to configure the plugin beyond its default settings, you can do so w
      apply plugin: "com.kiefer.gradle.embercli"
 
      embercli {
-          // toggle the build environment
-          environment = "development"
-
           // point to a different npm registry
           npmRegistry = "https://my-custom-npm-registry.com"
 
@@ -52,6 +54,12 @@ If you need to configure the plugin beyond its default settings, you can do so w
 
           // use only the presence of the bower components folder to determine up to date status, not all its contents
           trackBowerComponentsContents = false
+
+          // use to override the command for build
+          buildCommand = "build"
+
+          // use to override the arguments that are provided to the build command
+          buildArguments = ["--environment=production"]
 
           // use to override the command for testing (ex: exam)
           testCommand = "test"
