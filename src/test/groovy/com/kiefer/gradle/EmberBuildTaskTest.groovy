@@ -24,7 +24,7 @@ class EmberBuildTaskTest extends EmberCliPluginSupport {
             assert task.args.contains("production")
         } else {
             assert task.executable.contains("ember")
-            assert ["build", "--environment", "production"] == task.args
+            assert ["build", "--environment=production"] == task.args
         }
     }
 

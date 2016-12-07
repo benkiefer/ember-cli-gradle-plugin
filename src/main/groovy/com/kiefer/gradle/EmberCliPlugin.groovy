@@ -178,7 +178,12 @@ class EmberCliPlugin implements Plugin<Project> {
                     executable findProgram(project, "ember")
                 }
 
-                args "build", "--environment", project.embercli.environment
+                String buildCommand = project.embercli.buildCommand ?: "build"
+                args buildCommand
+
+                project.embercli.buildArguments?.each {
+                    args it
+                }
             }
 
         }
@@ -203,10 +208,11 @@ class EmberCliPlugin implements Plugin<Project> {
 }
 
 class EmberCliPluginExtension {
-    String environment = "production"
     String npmRegistry
     List<String> testArguments = ["--test-port=-1"]
+    List<String> buildArguments = ["--environment=production"]
     String testCommand = "test"
+    String buildCommand = "build"
     boolean trackNodeModulesContents = true
     boolean trackBowerComponentsContents = true
 }
