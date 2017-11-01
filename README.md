@@ -14,6 +14,7 @@ This plugin's task structure mimis that of the Gradle Java Plugin. The `build` t
 
  - As of version 3.2.0, we no longer support the environment configuration property. The build defaults are now the same, but you should switch to using the buildArguments property instead.
  - As of version 3.3.0, the default test port is now 0.
+ - As of version 3.4.0, `trackNodeModulesContents = false` and `trackBowerComponentsContents = false` no longer track the corresponding folders as files. Looking for suggestions here, but wanted to get rid of the deprecation before it was a problem.
 
 ## Requirements
 ---------

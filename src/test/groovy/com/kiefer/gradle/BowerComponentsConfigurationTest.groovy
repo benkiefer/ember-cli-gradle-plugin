@@ -13,7 +13,7 @@ class BowerComponentsConfigurationTest extends EmberCliPluginSupport {
         project.pluginManager.apply "com.kiefer.gradle.embercli"
 
         project.embercli {
-            trackBowerComponentsContents = false
+            trackBowerComponentsContents = true
         }
 
         project.evaluate()

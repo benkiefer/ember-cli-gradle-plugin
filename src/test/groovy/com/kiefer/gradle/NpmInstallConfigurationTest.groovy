@@ -15,7 +15,7 @@ class NpmInstallConfigurationTest extends EmberCliPluginSupport {
 
         project.embercli {
             npmRegistry = "foo"
-            trackNodeModulesContents = false
+            trackNodeModulesContents = true
         }
 
         project.evaluate()

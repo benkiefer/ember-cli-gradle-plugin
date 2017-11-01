@@ -58,8 +58,6 @@ class EmberCliPlugin implements Plugin<Project> {
 
                 if (project.embercli.trackNodeModulesContents) {
                     outputs.dir "node_modules"
-                } else {
-                    outputs.file "node_modules"
                 }
 
                 if(isWindows()) {
@@ -85,8 +83,6 @@ class EmberCliPlugin implements Plugin<Project> {
 
                 if (project.embercli.trackBowerComponentsContents) {
                     outputs.dir "bower_components"
-                } else {
-                    outputs.file "bower_components"
                 }
 
                 if(isWindows()) {
@@ -108,8 +104,6 @@ class EmberCliPlugin implements Plugin<Project> {
 
                 if (project.embercli.trackBowerComponentsContents) {
                     outputs.dir "bower_components"
-                } else {
-                    outputs.file "bower_components"
                 }
 
                 if(isWindows()) {
