@@ -19,12 +19,12 @@ class TestTaskTest extends EmberCliPluginSupport {
             assert task.args.contains("/c")
             assert task.args.contains("ember")
             assert task.args.contains("test")
-            assert task.args.contains("--test-port=-1")
+            assert task.args.contains("--test-port=-0")
         } else {
             assert task.executable.contains("ember")
             assert task.args.size() == 2
             assert task.args.contains("test")
-            assert task.args.contains("--test-port=-1")
+            assert task.args.contains("--test-port=-0")
         }
     }
 
@@ -152,12 +152,12 @@ class TestTaskTest extends EmberCliPluginSupport {
             assert task.args.contains("/c")
             assert task.args.contains("ember")
             assert task.args.contains("exam")
-            assert task.args.contains("--test-port=-1")
+            assert task.args.contains("--test-port=-0")
         } else {
             assert task.executable.contains("ember")
             assert task.args.size() == 2
             assert task.args.contains("exam")
-            assert task.args.contains("--test-port=-1")
+            assert task.args.contains("--test-port=-0")
         }
     }
 
@@ -179,12 +179,12 @@ class TestTaskTest extends EmberCliPluginSupport {
             assert task.args.contains("/c")
             assert task.args.contains("ember")
             assert task.args.contains("test")
-            assert task.args.contains("--test-port=-1")
+            assert task.args.contains("--test-port=-0")
         } else {
             assert task.executable.contains("ember")
             assert task.args.size() == 2
             assert task.args.contains("test")
-            assert task.args.contains("--test-port=-1")
+            assert task.args.contains("--test-port=-0")
         }
     }
 

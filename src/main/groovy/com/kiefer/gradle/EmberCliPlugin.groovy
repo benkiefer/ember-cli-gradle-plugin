@@ -209,7 +209,7 @@ class EmberCliPlugin implements Plugin<Project> {
 
 class EmberCliPluginExtension {
     String npmRegistry
-    List<String> testArguments = ["--test-port=-1"]
+    List<String> testArguments = ["--test-port=-0"]
     List<String> buildArguments = ["--environment=production"]
     String testCommand = "test"
     String buildCommand = "build"

@@ -65,7 +65,7 @@ If you need to configure the plugin beyond its default settings, you can do so w
           testCommand = "test"
 
           // use to override the arguments that are provided to the test command
-          testArguments = ["--test-port=-1"]
+          testArguments = ["--test-port=1234"]
      }
 
 For a more complete example including extraction into a project, check out my [sample project](https://github.com/benkiefer/gradle-ember-cli-example).
