@@ -12,7 +12,8 @@ This plugin's task structure mimis that of the Gradle Java Plugin. The `build` t
 ## Notes
 ---------
 
-As of version 3.2.0, we no longer support the environment configuration property. The build defaults are now the same, but you should switch to using the buildArguments property instead.
+ - As of version 3.2.0, we no longer support the environment configuration property. The build defaults are now the same, but you should switch to using the buildArguments property instead.
+ - As of version 3.3.0, the default test port is now 0.
 
 ## Requirements
 ---------
