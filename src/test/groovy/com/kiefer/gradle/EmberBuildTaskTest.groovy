@@ -32,7 +32,7 @@ class EmberBuildTaskTest extends EmberCliPluginSupport {
     void dependsOn() {
         def task = project.tasks.emberBuild
         assert task.dependsOn.contains('test')
-        assert task.dependsOn.contains('npmInstall')
+        assert task.dependsOn.contains('jsPackageInstall')
     }
 
     @Test
@@ -40,6 +40,7 @@ class EmberBuildTaskTest extends EmberCliPluginSupport {
         def task = project.tasks.emberBuild
         assert task.inputs.hasInputs
         assert hasInput(task, new File(project.rootDir, 'Brocfile.js'))
+        assert hasInput(task, new File(project.rootDir, 'ember-cli-build.js'))
         assert hasInput(task, new File(project.rootDir, 'config'))
         assert hasInput(task, new File(project.rootDir, 'node_modules'))
         assert hasInput(task, new File(project.rootDir, 'app'))

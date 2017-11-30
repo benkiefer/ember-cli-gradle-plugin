@@ -51,7 +51,7 @@ class EmberCliPlugin implements Plugin<Project> {
         }
 
         project.afterEvaluate {
-            project.tasks.create(name: 'npmInstall', type: Exec) {
+            project.tasks.create(name: 'jsPackageInstall', type: Exec) {
                 description "Install javascript dependencies"
 
                 inputs.file "package.json"
@@ -62,22 +62,22 @@ class EmberCliPlugin implements Plugin<Project> {
 
                 if(isWindows()) {
                     executable 'cmd'
-                    args '/c', project.embercli.packageInstallExecutable
+                    args '/c', project.embercli.jsPackageInstallExecutable
                 } else {
-                    executable project.embercli.packageInstallExecutable
+                    executable project.embercli.jsPackageInstallExecutable
                 }
 
                 if (project.embercli.npmRegistry) {
-                    args '--registry', project.embercli.npmRegistry, project.embercli.packageInstallCommand
+                    args '--registry', project.embercli.npmRegistry, project.embercli.jsPackageInstallCommand
                 } else {
-                    args project.embercli.packageInstallCommand
+                    args project.embercli.jsPackageInstallCommand
                 }
             }
 
             project.tasks.create(name: 'test', type: Exec) {
                 description "Execute ember tests"
 
-                dependsOn 'npmInstall'
+                dependsOn 'jsPackageInstall'
 
                 applyAppInputs inputs
                 inputs.files "tests", "testem.json", "testem.js"
@@ -122,7 +122,7 @@ class EmberCliPlugin implements Plugin<Project> {
 
                 outputs.dir "dist"
 
-                dependsOn 'npmInstall', 'test'
+                dependsOn 'jsPackageInstall', 'test'
 
                 if(isWindows()) {
                     executable 'cmd'
@@ -155,8 +155,7 @@ class EmberCliPlugin implements Plugin<Project> {
     }
 
     private static void applyAppInputs(TaskInputs inputs) {
-        inputs.files "app", "config", "node_modules", "public", "vendor", "Brocfile.js",
-            "package.json"
+        inputs.files "app", "config", "node_modules", "public", "vendor", "Brocfile.js", "ember-cli-build.js", "package.json"
     }
 }
 
@@ -166,7 +165,7 @@ class EmberCliPluginExtension {
     List<String> buildArguments = ["--environment=production"]
     String testCommand = "test"
     String buildCommand = "build"
-    String packageInstallExecutable = "npm"
-    String packageInstallCommand = "install"
+    String jsPackageInstallExecutable = "npm"
+    String jsPackageInstallCommand = "install"
     boolean trackNodeModulesContents = true
 }

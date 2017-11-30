@@ -5,7 +5,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
-class NpmInstallConfigurationTest extends EmberCliPluginSupport {
+class PackageInstallConfigurationTest extends EmberCliPluginSupport {
     final String PROJECT_NAME = "projectName";
 
     @BeforeMethod
@@ -24,7 +24,7 @@ class NpmInstallConfigurationTest extends EmberCliPluginSupport {
 
     @Test
     void taskExecutesAppropriateCommand() {
-        def task = project.tasks.npmInstall
+        def task = project.tasks.jsPackageInstall
         if(Os.isFamily(Os.FAMILY_WINDOWS)) {
             assert ["/c", "npm", "--registry", "foo", "install"] == task.args
         } else {
@@ -34,7 +34,7 @@ class NpmInstallConfigurationTest extends EmberCliPluginSupport {
 
     @Test
     void nodeModulesAreOutputs() {
-        def task = project.tasks.npmInstall
+        def task = project.tasks.jsPackageInstall
         assert task.outputs.hasOutput
         assert hasOutput(task, new File(project.rootDir, 'node_modules'))
     }
