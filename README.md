@@ -7,7 +7,7 @@ The plugin expects that you have a JS package manager (npm, yarn) on your path a
 
 Note: This plugin uses the Distribution plugin under the hood to create its zip artifact, so it will inherit tasks from that plugin.
 
-This plugin's task structure mimis that of the Gradle Java Plugin. The `build` task built into gradle depends on `check` and `assemble`. `check` is responsible for running tests, and `assemble is responsible for creating the build artifacts.
+This plugin's task structure mimics that of the Gradle Java Plugin. The `build` task built into gradle depends on `check` and `assemble`. `check` is responsible for running tests, and `assemble is responsible for creating the build artifacts.
 
 ## Notes
 ---------
