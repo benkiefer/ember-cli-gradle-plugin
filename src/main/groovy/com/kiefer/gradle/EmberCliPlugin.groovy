@@ -52,7 +52,7 @@ class EmberCliPlugin implements Plugin<Project> {
 
         project.afterEvaluate {
             project.tasks.create(name: 'npmInstall', type: Exec) {
-                description "Install npm dependencies"
+                description "Install javascript dependencies"
 
                 inputs.file "package.json"
 
@@ -62,15 +62,15 @@ class EmberCliPlugin implements Plugin<Project> {
 
                 if(isWindows()) {
                     executable 'cmd'
-                    args '/c', 'npm'
+                    args '/c', project.embercli.packageInstallExecutable
                 } else {
-                    executable 'npm'
+                    executable project.embercli.packageInstallExecutable
                 }
 
                 if (project.embercli.npmRegistry) {
-                    args '--registry', project.embercli.npmRegistry, 'install'
+                    args '--registry', project.embercli.npmRegistry, project.embercli.packageInstallCommand
                 } else {
-                    args 'install'
+                    args project.embercli.packageInstallCommand
                 }
             }
 
@@ -166,5 +166,7 @@ class EmberCliPluginExtension {
     List<String> buildArguments = ["--environment=production"]
     String testCommand = "test"
     String buildCommand = "build"
+    String packageInstallExecutable = "npm"
+    String packageInstallCommand = "install"
     boolean trackNodeModulesContents = true
 }
