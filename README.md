@@ -55,6 +55,12 @@ If you need to configure the plugin beyond its default settings, you can do so w
           // use only the presence of the node modules folder to determine up to date status, not all its contents
           trackNodeModulesContents = false
 
+          // use to override the executable for a package install (npm vs. yarn)
+          packageInstallExecutable = "npm"
+          
+          // use to override the install command for a package install
+          packageInstallExecutable = "install"
+
           // use to override the command for build
           buildCommand = "build"
 
