@@ -3,7 +3,7 @@
 
 A plugin for building Ember CLI projects with gradle.
 
-The plugin expects that you have a global install of npm, and that bower and ember-cli are installed as NPM dependencies of your project.
+The plugin expects that you have npm on your path and ember-cli as an NPM dependency of your project (default of ember-cli).
 
 Note: This plugin uses the Distribution plugin under the hood to create its zip artifact, so it will inherit tasks from that plugin.
 
@@ -15,6 +15,7 @@ This plugin's task structure mimis that of the Gradle Java Plugin. The `build` t
  - As of version 3.2.0, we no longer support the environment configuration property. The build defaults are now the same, but you should switch to using the buildArguments property instead.
  - As of version 3.3.0, the default test port is now 0.
  - As of version 3.4.0, `trackNodeModulesContents = false` and `trackBowerComponentsContents = false` no longer track the corresponding folders as files. Looking for suggestions here, but wanted to get rid of the deprecation before it was a problem.
+ - As of version 4.0.0, Bower related tasks are gone
 
 ## Requirements
 ---------
@@ -54,9 +55,6 @@ If you need to configure the plugin beyond its default settings, you can do so w
           // use only the presence of the node modules folder to determine up to date status, not all its contents
           trackNodeModulesContents = false
 
-          // use only the presence of the bower components folder to determine up to date status, not all its contents
-          trackBowerComponentsContents = false
-
           // use to override the command for build
           buildCommand = "build"
 
@@ -90,28 +88,10 @@ Example:
 
      ./gradlew npmInstall
 
-## The BowerInstall Task
----------
-
-Executes the bower install command. Also executes the NpmInstall task to ensure bower is available.
-
-Example:
-
-     ./gradlew bowerInstall
-
-## The BowerUpdate Task
----------
-
-Executes the bower update command. Also executes the NpmInstall task to ensure bower is available and the Bower Install task.
-
-Example:
-
-     ./gradlew bowerUpdate
-
 ## The Test Task
 ---------
 
-Shells out to Ember CLI and executes the test command. Also executes the BowerInstall and NpmInstall tasks. The `check` task depends on `test`.
+Shells out to Ember CLI and executes the test command. Also executes the NpmInstall task. The `check` task depends on `test`.
 
 Example:
 
@@ -120,7 +100,7 @@ Example:
 ## The EmberBuild Task
 ---------
 
-Shells out to Ember CLI and executes the build command with a production environment target. Also executes the Test, NpmInstall, and BowerInstall task. The `assemble` task depends on `emberBuild`.
+Shells out to Ember CLI and executes the build command with a production environment target. Also executes the Test and NpmInstall tasks. The `assemble` task depends on `emberBuild`.
 
 Example:
 

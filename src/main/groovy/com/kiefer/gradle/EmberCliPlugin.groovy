@@ -74,51 +74,10 @@ class EmberCliPlugin implements Plugin<Project> {
                 }
             }
 
-            project.tasks.create(name: 'bowerInstall', type: Exec) {
-                description "Install bower dependencies"
-
-                dependsOn 'npmInstall'
-
-                inputs.file "bower.json"
-
-                if (project.embercli.trackBowerComponentsContents) {
-                    outputs.dir "bower_components"
-                }
-
-                if(isWindows()) {
-                    executable 'cmd'
-                    args '/c', findProgram(project, "bower")
-                } else {
-                    executable findProgram(project, "bower")
-                }
-
-                args 'install'
-            }
-
-            project.tasks.create(name: 'bowerUpdate', type: Exec) {
-                description "Update bower dependencies"
-
-                dependsOn 'npmInstall', 'bowerInstall'
-
-                inputs.file "bower.json"
-
-                if (project.embercli.trackBowerComponentsContents) {
-                    outputs.dir "bower_components"
-                }
-
-                if(isWindows()) {
-                    executable 'cmd'
-                    args '/c', findProgram(project, "bower")
-                } else {
-                    executable findProgram(project, "bower")
-                }
-                args 'update'
-            }
-
             project.tasks.create(name: 'test', type: Exec) {
                 description "Execute ember tests"
 
-                dependsOn 'npmInstall', 'bowerInstall', 'bowerUpdate'
+                dependsOn 'npmInstall'
 
                 applyAppInputs inputs
                 inputs.files "tests", "testem.json", "testem.js"
@@ -163,7 +122,7 @@ class EmberCliPlugin implements Plugin<Project> {
 
                 outputs.dir "dist"
 
-                dependsOn 'npmInstall', 'bowerInstall', 'bowerUpdate', 'test'
+                dependsOn 'npmInstall', 'test'
 
                 if(isWindows()) {
                     executable 'cmd'
@@ -196,8 +155,8 @@ class EmberCliPlugin implements Plugin<Project> {
     }
 
     private static void applyAppInputs(TaskInputs inputs) {
-        inputs.files "app", "config", "node_modules", "public", "vendor", "bower_components", "Brocfile.js",
-            "package.json", "bower.json"
+        inputs.files "app", "config", "node_modules", "public", "vendor", "Brocfile.js",
+            "package.json"
     }
 }
 
@@ -208,5 +167,4 @@ class EmberCliPluginExtension {
     String testCommand = "test"
     String buildCommand = "build"
     boolean trackNodeModulesContents = true
-    boolean trackBowerComponentsContents = true
 }
