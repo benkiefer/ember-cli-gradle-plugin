@@ -2,7 +2,6 @@ package com.kiefer.gradle
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.testfixtures.ProjectBuilder
-import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
 class EmberBuildConfigurationTest extends EmberCliPluginSupport {

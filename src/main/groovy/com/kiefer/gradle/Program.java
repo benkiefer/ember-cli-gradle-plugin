@@ -1,10 +1,7 @@
 package com.kiefer.gradle;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 public class Program {
     public static boolean onPath(String program) {
