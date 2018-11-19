@@ -15,7 +15,7 @@ This plugin's task structure mimics that of the Gradle Java Plugin. The `build` 
  - As of version 3.2.0, we no longer support the environment configuration property. The build defaults are now the same, but you should switch to using the buildArguments property instead.
  - As of version 3.3.0, the default test port is now 0.
  - As of version 3.4.0, `trackNodeModulesContents = false` and `trackBowerComponentsContents = false` no longer track the corresponding folders as files. Looking for suggestions here, but wanted to get rid of the deprecation before it was a problem.
- - As of version 4.0.0 - Bower related tasks are gone. The JavaScript package manager and configurable (npm install, yarn install).
+ - As of version 4.0.0 - Bower related tasks are gone. The JavaScript package manager is now configurable (npm vs. yarn).
 
 ## Requirements
 ---------
