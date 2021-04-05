@@ -31,8 +31,13 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
 artifacts {
-    archives jar, sourcesJar
+    archives jar, javadocJar, sourcesJar
 }
 
 signing {
