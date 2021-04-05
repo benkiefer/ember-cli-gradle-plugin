@@ -1,4 +1,4 @@
-package com.kiefer.gradle
+package io.github.benkiefer
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.testfixtures.ProjectBuilder
@@ -11,7 +11,7 @@ class PackageInstallConfigurationTest extends EmberCliPluginSupport {
     @BeforeMethod
     void setUp() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             npmRegistry = "foo"

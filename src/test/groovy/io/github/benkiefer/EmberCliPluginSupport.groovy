@@ -1,4 +1,4 @@
-package com.kiefer.gradle
+package io.github.benkiefer
 
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -12,7 +12,7 @@ abstract class EmberCliPluginSupport {
     @BeforeMethod
     void setUp() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
         project.evaluate()
     }
 

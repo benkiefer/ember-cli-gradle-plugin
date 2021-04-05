@@ -1,4 +1,4 @@
-package com.kiefer.gradle
+package io.github.benkiefer
 
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
@@ -17,7 +17,7 @@ class CleanTaskTest {
 
         project = ProjectBuilder.builder().withProjectDir(projectDir).build()
 
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
     }
 
     @AfterMethod

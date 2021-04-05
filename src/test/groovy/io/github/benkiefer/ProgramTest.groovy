@@ -1,5 +1,6 @@
-package com.kiefer.gradle
+package io.github.benkiefer
 
+import io.github.benkiefer.Program
 import org.testng.annotations.Test
 
 class ProgramTest {

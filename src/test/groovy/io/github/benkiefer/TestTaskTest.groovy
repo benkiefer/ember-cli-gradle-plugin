@@ -1,4 +1,4 @@
-package com.kiefer.gradle
+package io.github.benkiefer
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.testfixtures.ProjectBuilder
@@ -31,7 +31,7 @@ class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void taskPassesTestArgumentsWhenPresent() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             testArguments = ["foo"]
@@ -58,7 +58,7 @@ class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void taskWithNullTestArguments() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             testArguments = null
@@ -83,7 +83,7 @@ class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void taskWithEmptyArgs() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             testArguments = []
@@ -108,7 +108,7 @@ class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void taskWithMultipleArgs() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             testArguments = ["a", "b"]
@@ -137,7 +137,7 @@ class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void testCommandIsConfigurable() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             testCommand = "exam"
@@ -164,7 +164,7 @@ class TestTaskTest extends EmberCliPluginSupport {
     @Test
     void testCommandWillReplaceNullWithTest() {
         project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             testCommand = null

@@ -1,4 +1,4 @@
-package com.kiefer.gradle
+package io.github.benkiefer
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.apache.tools.ant.util.TeeOutputStream

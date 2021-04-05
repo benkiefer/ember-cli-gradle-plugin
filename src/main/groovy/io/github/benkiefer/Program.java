@@ -1,4 +1,4 @@
-package com.kiefer.gradle;
+package io.github.benkiefer;
 
 import java.io.File;
 import java.util.regex.Pattern;

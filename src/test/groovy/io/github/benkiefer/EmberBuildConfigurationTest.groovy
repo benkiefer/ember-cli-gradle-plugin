@@ -1,4 +1,4 @@
-package com.kiefer.gradle
+package io.github.benkiefer
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.testfixtures.ProjectBuilder
@@ -10,7 +10,7 @@ class EmberBuildConfigurationTest extends EmberCliPluginSupport {
     @Test
     void nullingOutTheBuildCommandStillRunsBuild() {
         def project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             buildCommand = null
@@ -37,7 +37,7 @@ class EmberBuildConfigurationTest extends EmberCliPluginSupport {
     @Test
     void taskExecutesAppropriateCommand() {
         def project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             buildArguments = ["--environment=development" ]
@@ -64,7 +64,7 @@ class EmberBuildConfigurationTest extends EmberCliPluginSupport {
     @Test
     void taskExecutesWithMultipleArgs() {
         def project = ProjectBuilder.builder().withName(PROJECT_NAME).build()
-        project.pluginManager.apply "com.kiefer.gradle.embercli"
+        project.pluginManager.apply "io.github.benkiefer.embercli"
 
         project.embercli {
             buildArguments = ["a", "b" ]

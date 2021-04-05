@@ -16,7 +16,8 @@ This plugin's task structure mimics that of the Gradle Java Plugin. The `build` 
  - As of version 3.3.0, the default test port is now 0.
  - As of version 3.4.0, `trackNodeModulesContents = false` and `trackBowerComponentsContents = false` no longer track the corresponding folders as files. Looking for suggestions here, but wanted to get rid of the deprecation before it was a problem.
  - As of version 4.0.0 - Bower related tasks are gone. The JavaScript package manager is now configurable (npm vs. yarn).
-
+ - As of version 5.0.0 - The project is now deployed to maven central and packaged according to their constraints
+ 
 ## Requirements
 ---------
 
@@ -31,14 +32,14 @@ In your build.gradle file...
 
      buildscript {
          repositories {
-             jcenter()
+             mavenCentral()
          }
          dependencies {
-             classpath "com.kiefer.gradle:ember-cli-gradle-plugin:VERSION_NUMBER"
+             classpath "io.github.benkiefer:ember-cli-gradle-plugin:VERSION_NUMBER"
          }
      }
 
-     apply plugin: "com.kiefer.gradle.embercli"
+     apply plugin: "io.github.benkiefer.embercli"
 
 Then run:
 
@@ -46,7 +47,7 @@ Then run:
 
 If you need to configure the plugin beyond its default settings, you can do so with the following options.
 
-     apply plugin: "com.kiefer.gradle.embercli"
+     apply plugin: "io.github.benkiefer.embercli"
 
      embercli {
           // point to a different npm registry
