@@ -1,17 +1,7 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
-    }
-}
-
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'groovy'
 apply plugin: 'maven'
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'signing'
 
 wrapper {
     gradleVersion = '4.10.2'
@@ -42,45 +32,48 @@ task sourcesJar(type: Jar) {
 }
 
 artifacts {
-    archives jar
-    archives sourcesJar
+    archives jar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
 }
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-            artifact sourcesJar
-        }
-    }
-}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-bintray {
-    if (project.hasProperty("bintray_user")) {
-        user = bintray_user
-        key = bintray_api_key
-    }
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
 
-    publications = ['mavenJava']
-    dryRun = false
-    publish = true
-    pkg {
-        repo = 'maven'
-        name = project.name
-        desc = 'A plugin for building Ember Cli Projects with Gradle'
-        websiteUrl = 'https://github.com/benkiefer/ember-cli-gradle-plugin'
-        issueTrackerUrl = 'https://github.com/benkiefer/ember-cli-gradle-plugin/issues'
-        vcsUrl = 'https://github.com/benkiefer/ember-cli-gradle-plugin.git'
-        licenses = ['MIT']
-        labels = ['ember', 'gradle', 'plugin', 'ember-cli']
-        publicDownloadNumbers = true
-        version {
-            description = 'A plugin for building Ember CLI projects with Gradle'
-            name = project.version
-            vcsTag = project.version
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Ember Cli Gradle Plugin'
+                packaging 'jar'
+                description 'A plugin for building Ember CLI projects with gradle.'
+                url 'https://github.com/benkiefer/ember-cli-gradle-plugin'
+
+                scm {
+                    connection 'git@github.com:benkiefer/ember-cli-gradle-plugin.git'
+                    developerConnection 'git@github.com:benkiefer/ember-cli-gradle-plugin.git'
+                    url 'https://github.com/benkiefer/ember-cli-gradle-plugin.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'https://github.com/benkiefer/ember-cli-gradle-plugin/blob/master/LICENSE'
+                    }
+                }
+            }
         }
     }
 }
