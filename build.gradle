@@ -21,8 +21,8 @@ repositories {
     mavenCentral()
 }
 
-group = "com.kiefer.gradle"
-version = "4.0.1-SNAPSHOT"
+group = "io.github.benkiefer"
+version = "5.0.0-SNAPSHOT"
 
 dependencies {
     compile gradleApi()
