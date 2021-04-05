@@ -73,6 +73,14 @@ uploadArchives {
                         url 'https://github.com/benkiefer/ember-cli-gradle-plugin/blob/master/LICENSE'
                     }
                 }
+
+                developers {
+                    developer {
+                        id 'benkiefer'
+                        name 'Ben Kiefer'
+                        email 'ben.a.kiefer@gmail.com'
+                    }
+                }
             }
         }
     }
